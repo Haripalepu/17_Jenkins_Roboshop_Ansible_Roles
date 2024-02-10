@@ -1,0 +1,25 @@
+- name: Disable current versio of mysql
+  ansible.builtin.command: dnf module disable mysql -y
+
+- name: Copy file with owner and permissions
+  ansible.builtin.copy:
+    src: mysql.repo
+    dest: /etc/yum.repos.d/mysql.repo
+  
+- name: Install MySql
+  ansible.builtin.package:
+    name: mysql-community-server
+    state: present
+
+- name: Start & Enable MySql
+  ansible.builtin.service:
+    name: mysqld
+    state: started
+    enabled: yes
+
+- name: setup root password
+  ansible.builtin.command: "mysql_secure_installation --set-root-pass {{ lookup('aws_ssm', '/roboshop/{{env}}/mysql/root_password', region='us-east-1', decrypt=True ) }}"
+
+  #created password manually in parameterstore to fetch it ansible should have Iam role to access it and boto3 and botocore(aws python module,library/plugin) also available to connect to the aws as ansible and python are developed by python.  
+
+  #To check the mysql server login into it and run "mysql -u root -pRoboShop@1" to connect databse.

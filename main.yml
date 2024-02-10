@@ -1,0 +1,9 @@
+- name: "install {{component}}"  #{{any name}}
+  hosts: "{{component}}"
+  vars_files:
+  - variables.yml
+  become: yes
+  roles:
+  - "{{component}}"
+
+#Command to run the palybook: ansible-playbook -i inventory.ini -e ansible_user=centos -e ansible_password=DevOps321 -e component=mongodb main.yml

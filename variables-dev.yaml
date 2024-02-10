@@ -1,0 +1,26 @@
+MONGODB_HOST: mongodb-dev.haripalepu.cloud
+
+CATALOGUE_HOST: catalogue.alb-dev.haripalepu.cloud
+
+WEB_HOST: web.alb-dev.haripalepu.cloud  #delete not required
+
+REDIS_HOST: redis-dev.haripalepu.cloud
+
+USER_HOST: user.alb-dev.haripalepu.cloud
+
+CART_HOST: cart.alb-dev.haripalepu.cloud
+
+RABBITMQ_HOST: rabbitmq-dev.haripalepu.cloud
+
+MYSQL_HOST: mysql-dev.haripalepu.cloud
+
+PAYMENT_HOST: payment.alb-dev.haripalepu.cloud
+
+SHIPPING_HOST: shipping.alb-dev.haripalepu.cloud
+
+DISPATCH: dispatch.alb-dev.haripalepu.cloud
+
+NEXUS_URL: http://172.31.84.182:8081/repository/ #give the url
+
+group_id: "com/roboshop"
+

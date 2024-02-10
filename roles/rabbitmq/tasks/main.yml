@@ -1,0 +1,34 @@
+- name: configure yum erlang repo
+  ansible.builtin.shell: curl -s https://packagecloud.io/install/repositories/rabbitmq/erlang/script.rpm.sh | bash
+
+- name: Configure YUM Repos for RabbitMQ
+  ansible.builtin.shell: curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.rpm.sh | bash
+
+- name: Install rabbitmq server 
+  ansible.builtin.dnf:
+    name: rabbitmq-server
+    state: present
+
+- name: Start and enable rabbitmq
+  ansible.builtin.service:
+    name: rabbitmq-server
+    state: started
+    enabled: yes 
+
+# - name: Create rabbitmq user
+#   ansible.builtin.command: "rabbitmqctl add_user {{Roboshop_user}} {{Roboshop_password}}"
+  
+# - name: Set permissions
+#   ansible.builtin.command: rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*"
+
+#The above lines are commented as we are creating the username and password in parameter store manually and fetching it using ansible lookup function.
+
+- name: create rabbitmq user
+  community.rabbitmq.rabbitmq_user:
+    user: "{{ lookup('aws_ssm', '/roboshop/{{env}}/rabbitmq_user', region='us-east-1', decrypt=True ) }}"
+    password: "{{ lookup('aws_ssm', '/roboshop/{{env}}/rabbitmq_password', region='us-east-1', decrypt=True ) }}"
+    vhost: /
+    configure_priv: .*
+    read_priv: .*
+    write_priv: .*
+    state: present
