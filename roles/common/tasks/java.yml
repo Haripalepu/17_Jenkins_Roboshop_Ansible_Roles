@@ -9,6 +9,6 @@
     chdir: /app
 
 - name: Rename jar file 
-  ansible.builtin.command: "mv target/{{host_name}}-{{shipping_version}}.jar {{host_name}}.jar"
+  ansible.builtin.command: "mv target/{{component}}-{{shipping_version}}.jar {{component}}.jar"
   args:
     chdir: /app
