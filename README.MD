@@ -1,4 +1,4 @@
-Earlier the ansible was downloading the application code/package from S3. 
+Earlier the ansible was downloading the application code/package from S3... 
 Now we have to configure it to download the artifact from Nexus repo.
 Download specific version. 
 So we need to give Nexus location and artifact version so we have to do the change in playbook.
